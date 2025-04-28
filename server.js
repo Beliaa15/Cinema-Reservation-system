@@ -1,7 +1,10 @@
 const express = require('express');
 const helmet = require('helmet');
 const { connectWithRetry } = require('./utils/db');
+
 const authRoutes = require('./routes/authRoutes');
+const movieRoutes = require('./routes/movieRoutes');
+
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const { port } = require('./config/index')
@@ -11,6 +14,7 @@ app.use(helmet());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/movies', movieRoutes);
 
 app.use(errorMiddleware);
 
