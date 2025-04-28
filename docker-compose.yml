@@ -1,0 +1,24 @@
+services:
+  api:
+    build: .
+    env_file: .env
+    ports:
+      - "${PORT}:3000"
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+volumes:
+  mongo-data:
+  redis-data:
