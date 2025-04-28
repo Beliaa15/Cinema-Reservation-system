@@ -4,7 +4,7 @@ const { connectWithRetry } = require('./utils/db');
 
 const authRoutes = require('./routes/authRoutes');
 const movieRoutes = require('./routes/movieRoutes');
-
+const showtimeRoutes = require('./routes/showtimeRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 const { port } = require('./config/index')
@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
+app.use('/api/showtimes', showtimeRoutes);
 
 app.use(errorMiddleware);
 
