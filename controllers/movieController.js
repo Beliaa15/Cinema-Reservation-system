@@ -1,4 +1,5 @@
 const Movie = require('../models/Movie');
+
 exports.list = async (req, res, next) => {
     try {
         const query = {};
@@ -34,6 +35,42 @@ exports.getById = async (req, res, next) => {
             return res.status(404).json({ message: 'Movie not found' });
         }
         res.json(movie);
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.create = async (req, res, next) => {
+    try {
+        res.status(201).json(await Movie.create(req.body));
+    } catch (error) {
+        next(error);
+    };
+};
+
+exports.update = async (req, res, next) => {
+    try {
+        res.json(await Movie.findByIdAndUpdate(req.params.id, req.body, { new: true }));
+    } catch (error) {
+        next(error)
+    };
+};
+
+exports.remove = async (req, res, next) => {
+    try {
+        const movie = await Movie.findByIdAndDelete(req.params.id);
+        if (!movie) {
+            return res.status(404).json({ message: 'Movie not found' });
+        }
+        res.status(204).json({ message: 'Movie deleted' });
+    } catch (error) {
+        next(error)
+    };
+};
+
+exports.getGenres = async (req, res, next) => {
+    try {
+        res.json(Movie.GENRES);
     } catch (error) {
         next(error);
     }
