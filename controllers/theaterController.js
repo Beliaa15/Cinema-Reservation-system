@@ -48,7 +48,7 @@ exports.remove = async (req, res, next) => {
     if (!theater) {
       return res.status(404).json({ message: "Theater not found" });
     }
-    res.status(204).json({ message: "Theater deleted" });
+    res.status(200).json({ message: "Theater deleted" });
   } catch (error) {
     next(error);
   }
